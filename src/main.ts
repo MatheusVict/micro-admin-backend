@@ -10,7 +10,8 @@ async function bootstrap() {
     transport: Transport.RMQ,
     options: {
       urls: [process.env.AWS_RABBITMQ],
-      noAck: false, // Só pode deletar a menssagem quando a gente devolver uma confirmação(Ack). Se não enivar uma reposta ele tenta enviar dnv dando erro de chave duplicada
+      noAck: false,
+      // Só pode deletar a menssagem quando a gente devolver uma confirmação(Ack). Se não enivar uma reposta ele tenta enviar dnv dando erro de chave duplicada, efilerando infinitamente
       queue: 'admin-backend',
     },
   });

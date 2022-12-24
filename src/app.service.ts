@@ -31,7 +31,10 @@ export class AppService {
 
   async getOne(id: string): Promise<CategoriesInterface> {
     try {
-      return await this.categoriesModel.findById(id);
+      const category = await this.categoriesModel.findById(id);
+      if (!category) throw new RpcException('categoria não encontrada');
+
+      return category;
     } catch (error) {
       this.logger.log(`Error: ${error.menssage}`);
       throw new RpcException(error.message);

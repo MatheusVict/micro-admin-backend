@@ -9,7 +9,7 @@ import {
 } from '@nestjs/microservices';
 import { CategoriesInterface } from './interface/categories/categories.interface';
 
-const ackErros: string[] = ['E11000'];
+const ackErros: string[] = ['E11000', '', ''];
 
 @Controller()
 export class AppController {
@@ -46,12 +46,17 @@ export class AppController {
     const originMessage = context.getMessage();
 
     if (_id) {
-      const category = await this.appService.getOne(_id);
-      await channel.ack(originMessage);
-      return category;
-    } else {
-      await channel.ack(originMessage);
-      return await this.appService.findAll();
+      try {
+        const category = await this.appService.getOne(_id);
+        await channel.ack(originMessage); // Já faz tudo automaticamente
+
+        return category;
+      } catch (error) {
+        this.logger.error(error.message);
+      }
     }
+
+    await channel.ack(originMessage);
+    return await this.appService.findAll();
   }
 }
