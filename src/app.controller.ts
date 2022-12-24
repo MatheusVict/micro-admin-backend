@@ -32,11 +32,11 @@ export class AppController {
       await channel.ack(originMessage); //Confirmação de uma menssagem recebida pode ser apagadacom sucesso
     } catch (error) {
       this.logger.error(`Error: ${JSON.stringify(error.message)}`);
-      ackErros.map(async (ackErro) => {
-        if (error.menssage.includes(ackErro)) {
-          await channel.ack(originMessage);
-        }
-      });
+      const filterAckERror = ackErros.filter((ackErro) =>
+        error.menssage.includes(ackErro),
+      );
+
+      if (filterAckERror) await channel.ack(originMessage);
     }
   }
 
