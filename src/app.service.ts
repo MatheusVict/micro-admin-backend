@@ -49,4 +49,13 @@ export class AppService {
       throw new RpcException(error.message);
     }
   }
+
+  async updateCategory(_id: string, category: CategoriesInterface) {
+    try {
+      await this.categoriesModel.findOneAndUpdate({ _id }, { $set: category });
+    } catch (error) {
+      this.logger.error(`Error: ${JSON.stringify(error.menssage)}`);
+      throw new RpcException(`Erro ao atualizar: ${error.message}`);
+    }
+  }
 }

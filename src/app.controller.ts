@@ -53,10 +53,35 @@ export class AppController {
         return category;
       } catch (error) {
         this.logger.error(error.message);
+        const filterAckERror = ackErros.filter((ackErro) =>
+          error.menssage.includes(ackErro),
+        );
+
+        if (filterAckERror) await channel.ack(originMessage);
       }
     }
 
     await channel.ack(originMessage);
     return await this.appService.findAll();
+  }
+
+  @EventPattern('atualizar-categoria')
+  async updateCategory(@Payload() data: any, @Ctx() context: RmqContext) {
+    const channel = context.getChannelRef();
+    const originMessage = context.getMessage();
+    this.logger.log(`data: ${JSON.stringify(data)}`);
+
+    try {
+      const _id: string = data.id;
+      const category: CategoriesInterface = data.category;
+      await this.appService.updateCategory(_id, category);
+      await channel.ack(originMessage);
+    } catch (error) {
+      const filterAckERror = ackErros.filter((ackErro) =>
+        error.menssage.includs(ackErro),
+      );
+
+      if (filterAckERror) await channel.ack(originMessage);
+    }
   }
 }
