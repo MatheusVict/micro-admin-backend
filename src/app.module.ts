@@ -3,8 +3,8 @@ import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { ConfigModule } from '@nestjs/config';
 import { MongooseModule } from '@nestjs/mongoose';
-import { CategorySchema } from './interface/categories/categories.schema';
-import { PlayerSchema } from './interface/players/player.schema';
+import { CategoriesModule } from './categories/categories.module';
+import { PlayersModule } from './players/players.module';
 
 @Module({
   imports: [
@@ -13,10 +13,8 @@ import { PlayerSchema } from './interface/players/player.schema';
       autoCreate: true,
       autoIndex: true,
     }),
-    MongooseModule.forFeature([
-      { name: 'categories', schema: CategorySchema },
-      { name: 'players', schema: PlayerSchema },
-    ]),
+    CategoriesModule,
+    PlayersModule,
   ],
   controllers: [AppController],
   providers: [AppService],

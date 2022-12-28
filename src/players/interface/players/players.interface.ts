@@ -1,5 +1,5 @@
 import { Document } from 'mongoose';
-import { CategoriesInterface } from '../categories/categories.interface';
+import { CategoriesInterface } from '../../../categories/interfaces/categories/categories.interface';
 
 export interface PlayerInterface extends Document {
   phoneNumber: string;
