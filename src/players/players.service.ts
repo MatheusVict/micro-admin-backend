@@ -25,7 +25,7 @@ export class PlayersService {
 
   async findAll(): Promise<PlayerInterface[]> {
     try {
-      return await this.playersModel.find().populate('category');
+      return await this.playersModel.find();
     } catch (error) {
       this.logger.error(`Erro: ${JSON.stringify(error.message)}`);
       throw new RpcException(error.message);
@@ -34,7 +34,7 @@ export class PlayersService {
 
   async findOne(id: string): Promise<PlayerInterface> {
     try {
-      return await (await this.playersModel.findById(id)).populate('category');
+      return await this.playersModel.findById(id);
     } catch (error) {
       this.logger.error(`Erro: ${JSON.stringify(error.message)}`);
       throw new RpcException(error.message);
