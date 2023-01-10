@@ -57,7 +57,7 @@ export class CategoriesController {
           error.menssage.includes(ackErro),
         );
 
-        if (filterAckERror) await channel.ack(originMessage);
+        if (filterAckERror.length > 0) await channel.ack(originMessage);
       }
     }
 
@@ -81,7 +81,7 @@ export class CategoriesController {
         error.menssage.includes(ackErro),
       );
 
-      if (filterAckERror) await channel.ack(originMessage);
+      if (filterAckERror.length > 0) await channel.ack(originMessage);
     }
   }
 
@@ -101,7 +101,7 @@ export class CategoriesController {
         error.menssage.includes(ackErro),
       );
 
-      if (filterAckERror) await channel.ack(originMessage);
+      if (filterAckERror.length > 0) await channel.ack(originMessage);
     }
   }
 }
