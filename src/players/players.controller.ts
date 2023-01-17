@@ -35,7 +35,7 @@ export class PlayersController {
         error.message.includes(ackErro),
       );
 
-      if (filterAckError.length > 0) await channel.ack(originMessage);
+      if (filterAckError) await channel.ack(originMessage);
     }
   }
 
@@ -70,7 +70,7 @@ export class PlayersController {
         error.menssage.includes(ackErro),
       );
 
-      if (filterAckError.length > 0) await channel.ack(originMessage);
+      if (filterAckError) await channel.ack(originMessage);
     }
   }
 
@@ -88,7 +88,7 @@ export class PlayersController {
         error.message.includes(ackErro),
       );
 
-      if (filterAckError.length > 0) await channel.ack(originMessage);
+      if (filterAckError) await channel.ack(originMessage);
     }
   }
 }

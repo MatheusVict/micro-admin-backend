@@ -33,10 +33,15 @@ export class CategoriesController {
     } catch (error) {
       this.logger.error(`Error: ${JSON.stringify(error.message)}`);
       const filterAckERror = ackErros.filter((ackErro) =>
-        error.menssage.includes(ackErro),
+        error.message.includes(ackErro),
       );
 
-      if (filterAckERror) await channel.ack(originMessage);
+      if (filterAckERror.length > 0) {
+        await channel.ack(originMessage);
+        return;
+      }
+
+      await channel.nack(originMessage);
     }
   }
 
@@ -54,10 +59,15 @@ export class CategoriesController {
       } catch (error) {
         this.logger.error(`O Erro foi id :${JSON.stringify(error.message)}`);
         const filterAckERror = ackErros.filter((ackErro) =>
-          error.menssage.includes(ackErro),
+          error.message.includes(ackErro),
         );
 
-        if (filterAckERror.length > 0) await channel.ack(originMessage);
+        if (filterAckERror.length > 0) {
+          await channel.ack(originMessage);
+          return;
+        }
+
+        await channel.nack(originMessage);
       }
     }
 
@@ -78,10 +88,15 @@ export class CategoriesController {
       await channel.ack(originMessage);
     } catch (error) {
       const filterAckERror = ackErros.filter((ackErro) =>
-        error.menssage.includes(ackErro),
+        error.message.includes(ackErro),
       );
 
-      if (filterAckERror.length > 0) await channel.ack(originMessage);
+      if (filterAckERror.length > 0) {
+        await channel.ack(originMessage);
+        return;
+      }
+
+      await channel.nack(originMessage);
     }
   }
 
@@ -98,10 +113,15 @@ export class CategoriesController {
     } catch (error) {
       this.logger.error(`O Erro foi:${JSON.stringify(error.message)}`);
       const filterAckERror = ackErros.filter((ackErro) =>
-        error.menssage.includes(ackErro),
+        error.message.includes(ackErro),
       );
 
-      if (filterAckERror.length > 0) await channel.ack(originMessage);
+      if (filterAckERror.length > 0) {
+        await channel.ack(originMessage);
+        return;
+      }
+
+      await channel.nack(originMessage);
     }
   }
 }
